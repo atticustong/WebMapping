@@ -5,42 +5,83 @@
     <meta charset='utf-8' />
     <title>University of Oregon Mapping</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
     <!--    Include the reference to the Mapbox JavaScript here in the <head> of the page    -->
     
 
 
-          
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />      
     <!--    Include the reference to the Mapbox CSS here in the <head> of the page    -->
-    
 
     <style>
+        body { margin: 10px; padding: 10px; }
+
+        #map { position:absolute; top:0; bottom:0; width:100%; }
         /* Insert the CSS code here between the <style> tags */
         
-
+        #title { z-index: 9999; 
+         background-color:rgb(185, 255, 179); 
+         opacity: 80%; 
+         text-align: center 
+        }
 
     </style>
+
   </head>
 
   <body>
     <!--  Insert the map div here in the <body> of the page  -->
-   
+        <div id='map'></div>
+
     <!--  Insert the tile div here (part V) -->
+        <div id='title'>
+          <h1 style= "font-size: 30px;font-family: Arial">My Map of Portland</h1>
+          <h2 style="font-size: 20px;font-family: Arial">By: Atticus Tong</h2>
+        </div>
 
     <script>
         // Insert the JavaScript within the <script> tags, within the body   
         // Start with the Mapbox access token here
- 
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYXR0aWN1c3RvbmciLCJhIjoiY2x1b2k5bXJqMGhkajJxcDcxYnNmM2Z1diJ9.N9r04CKMJQuYu5-QQnnEQw';
    
         // Then initialize the map here
-   
+        var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/atticustong/clulkcp5c00d501r7ecb50xfv',
+        center: [-122.6788, 45.5212],
+        zoom: 11
+        })
     
-
         // Add popup markers here  (part IV)
-        
+        var popup = new mapboxgl.Popup({ offset: 25 })
+          .setHTML('Hello World. Welcome to Portland, Oregon!');
+        var marker = new mapboxgl.Marker()
+          .setLngLat([-122.6788, 45.5212])
+          .setPopup(popup)
+          .addTo(map);
+        var popup_layer = new mapboxgl.Popup({closeOnClick: true, anchor: 'top-right'}) 
+          .setLngLat([-122.64, 45.5]) 
+          .setHTML('<h1>Check out some of my favorite places in Portland!</h1>') 
+          .addTo(map); 
+        var popup_layer_movement = new mapboxgl.Popup({closeOnClick: false, anchor: 'top-right'})
+          .setLngLat([-122.68599989733757, 45.53310600648201])
+          .setHTML('<a href="https://movementgyms.com/portland/">Movement Climbing</a>')
+          .addTo(map);
+        var popup_layer_grant = new mapboxgl.Popup({closeOnClick: false, anchor: 'top-left'})
+          .setLngLat([-122.62661246726475, 45.53898392489598])
+          .setHTML('<a href="-122.62661246726475, 45.53898392489598">Grant High School</a>')
+          .addTo(map);
+
         // Add any other variables such as markers here (part III)
+        var marker = new mapboxgl.Marker({color:'#D35400'})
+          .setLngLat([-122.68599989733757, 45.53310600648201])
+          .addTo(map);
+        var marker2 = new mapboxgl.Marker({color:'#2471A3'})
+          .setLngLat([-122.62661246726475, 45.53898392489598])
+          .addTo(map);
 
         // Add optional advanced "On load" function here
-        
+
     </script>
 
   </body>
